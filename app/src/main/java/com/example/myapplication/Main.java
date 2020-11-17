@@ -28,7 +28,7 @@ public class Main extends Activity {
         b9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Main.this,Mainusuario.class);
+                Intent i = new Intent(Main.this,MainUser.class);
                 startActivity(i);
             }
         });

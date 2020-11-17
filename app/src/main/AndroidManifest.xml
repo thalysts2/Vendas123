@@ -9,12 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CadastroActivity"></activity>
-        <activity android:name=".MainU" />
-        <activity android:name=".Cadastro" />
-        <activity android:name=".Usuario" />
+        <activity android:name=".MainUser"></activity>
+        <activity android:name=".CadastroActivity" />
         <activity android:name=".ConsultaActivity" />
-        <activity android:name=".Mainusuario" />
         <activity android:name=".vendasView" />
         <activity android:name=".vendasEditar" />
         <activity android:name=".Vendas" />
@@ -35,6 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

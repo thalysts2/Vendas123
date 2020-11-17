@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,52 +13,52 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ConsultaActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {    private EditText editTextNome;
-    private ListView listViewUsuarios;
-    private Button buttonFechar;
-    private UsuarioAdapter usuarioAdapter;
-    private ArrayList<Usuario> usuarios;
-    private Usuario usuarioEdicao;
+    public class ConsultaActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+        private ListView listViewUsuarios;
+        private Button buttonFechar;
+        private UsuarioAdapter usuarioAdapter;
+        private ArrayList<Usuario> usuarios;
+        private Usuario usuarioEdicao;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consulta);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_consulta);
 
-        buttonFechar = (Button)findViewById(R.id.buttonFechar);
-        buttonFechar.setOnClickListener(this);
+            buttonFechar = (Button)findViewById(R.id.buttonFechar);
+            buttonFechar.setOnClickListener(this);
 
-        listViewUsuarios = (ListView)findViewById(R.id.listViewUsuarios);
-        listViewUsuarios.setOnItemClickListener(this);
+            listViewUsuarios = (ListView)findViewById(R.id.listViewUsuarios);
+            listViewUsuarios.setOnItemClickListener(this);
 
-        usuarios = new Usuario(this).getUsuarios();
-        usuarioAdapter = new UsuarioAdapter(this,usuarios);
-        listViewUsuarios.setAdapter(usuarioAdapter);
-    }
+            usuarios = new Usuario(this).getUsuarios();
+            usuarioAdapter = new UsuarioAdapter(this,usuarios);
+            listViewUsuarios.setAdapter(usuarioAdapter);
+        }
 
-    @Override
-    public void onClick(View v) {
-        finish();
-    }
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Usuario usuario = usuarios.get(position);
-        Intent intent = new Intent(this,CadastroActivity.class);
-        intent.putExtra("usuario",usuario.getCodigo());
-        usuarioEdicao = usuario;
-        startActivity(intent);
-    }
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Usuario usuario = usuarios.get(position);
+            Intent intent = new Intent(this,CadastroActivity.class);
+            intent.putExtra("consulta",usuario.getCodigo());
+            usuarioEdicao = usuario;
+            startActivity(intent);
+        }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (usuarioEdicao != null){
-            usuarioEdicao.carregaUsuarioPeloCodigo(usuarioEdicao.getCodigo());
-            if (usuarioEdicao.isExcluir())
-                usuarios.remove(usuarioEdicao);
-            usuarioAdapter.notifyDataSetChanged();
+        @Override
+        protected void onResume() {
+            super.onResume();
+            if (usuarioEdicao != null){
+                usuarioEdicao.carregaUsuarioPeloCodigo(usuarioEdicao.getCodigo());
+                if (usuarioEdicao.isExcluir())
+                    usuarios.remove(usuarioEdicao);
+                usuarioAdapter.notifyDataSetChanged();
+            }
         }
     }
-}
